@@ -3,6 +3,7 @@ import { controller } from "./controllers/controller.ts";
 
 const router = new Router();
 
-router.get("/get-mean/:word", controller.getMean)
+router.get("/get-mean/:word", controller.getMean);
+router.post("/get-mean-sentence", controller.getMeanSentence);
 
 export { router };
