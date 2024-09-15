@@ -2,7 +2,7 @@ import { assert } from "https://deno.land/std@0.84.0/_util/assert.ts";
 
 class Word {
   // [スペル,読み,名詞,動詞,形容詞,その他]の長さ6リスト
-  private mean:string[];
+  private mean: string[];
 
   constructor(list: string[]) {
     assert(
@@ -12,11 +12,11 @@ class Word {
     this.mean = list;
     return this;
   }
-  getAllList(){
+  getAllList() {
     return this.mean;
   }
-  getAllDict(){
-    const dict:{[key:string]:string} = {};
+  getAllDict() {
+    const dict: { [key: string]: string } = {};
     dict.spell = this.mean[0];
     dict.kana = this.mean[1];
     dict.subject = this.mean[2];
@@ -29,27 +29,25 @@ class Word {
 
 export default class Tokipona {
   /* field */
-  private static pu:{[key:string]:Word} = {};
+  private static pu: { [key: string]: Word } = {};
 
   /* private */
 
   /* public */
   static async init() {
-    const fileText:string = await Deno.readTextFile("./server/utils/pu.tsv");
-    const pu2dArray:string[][] = fileText.split("\n").map((line) => {
-      const lineList:string[] = line.replaceAll("\r", "").split("\t");
+    const fileText: string = await Deno.readTextFile("./server/utils/pu.tsv");
+    const pu2dArray: string[][] = fileText.split("\n").map((line) => {
+      const lineList: string[] = line.replaceAll("\r", "").split("\t");
       return lineList;
     });
     pu2dArray.forEach((list) => {
       this.pu[list[0]] = new Word(list);
     });
-  };
-  static getMeanList(word:string):string[] {
+  }
+  static getMeanList(word: string): string[] {
     return this.pu[word]?.getAllList();
   }
-  static getMeanDict(word:string):{[key:string]:string} {
+  static getMeanDict(word: string): { [key: string]: string } {
     return this.pu[word]?.getAllDict();
   }
 }
-
-
