@@ -2,13 +2,10 @@ import { helpers, RouterContext } from "https://deno.land/x/oak@v6.5.0/mod.ts";
 import { serveFile } from "https://deno.land/std@0.202.0/http/file_server.ts";
 import Tokipona from "./../models/tokipona.ts";
 
-const STATIC_DIR = "./private"
-
 Tokipona.init();
 
 export const controller = {
-
-  getMean(ctx:RouterContext) {
+  getMean(ctx: RouterContext) {
     const { word } = helpers.getQuery(ctx, { mergeParams: true });
     const means: { [key: string]: string } = Tokipona.getMeanDict(word);
     if (!means) {
@@ -19,7 +16,7 @@ export const controller = {
     }
   },
 
-  async getMeanSentence(ctx:RouterContext) {
+  async getMeanSentence(ctx: RouterContext) {
     const requestJson = await ctx.request.body.json();
     const sentence: string = requestJson["sentence"];
     const meanList: { [key: string]: string }[] = [];
@@ -35,5 +32,4 @@ export const controller = {
       ctx.response.body = JSON.stringify(responseJson, null, 2);
     }
   },
-
 };

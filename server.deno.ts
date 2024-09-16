@@ -20,22 +20,21 @@ app.addEventListener("error", (evt) => {
 app.use(router.routes());
 app.use(router.allowedMethods());
 
-app.use(async(context, next) => {
+app.use(async (context, next) => {
   const filePath = context.request.url.pathname;
-  try{
-    if(filePath.startsWith("/api")){
+  try {
+    if (filePath.startsWith("/api")) {
       await next();
-    }else{
+    } else {
       await send(context, filePath, {
         root: "./public",
-        index: "index.html"
+        index: "index.html",
       });
     }
-  }catch{
+  } catch {
     context.response.status = 404;
     context.response.body = "404 - file not found";
   }
 });
 
-app.listen({port: 8000});
-
+app.listen({ port: 8000 });
