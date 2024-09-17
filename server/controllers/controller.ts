@@ -1,7 +1,6 @@
 import { helpers, RouterContext } from "https://deno.land/x/oak@v6.5.0/mod.ts";
-import { serveFile } from "https://deno.land/std@0.202.0/http/file_server.ts";
 import Tokipona from "./../models/tokipona.ts";
-import { Route } from "https://deno.land/x/oak@v17.0.0/mod.ts";
+import makeImageBase64 from "../models/makeImageBase64.ts";
 
 Tokipona.init();
 const decoder = new TextDecoder();
@@ -44,17 +43,12 @@ export const controller = {
   async getSentenceImage(ctx: RouterContext) {
     const requestJson = await ctx.request.body.json();
     const sentence: string = requestJson["sentence"];
-    const command = new Deno.Command("python", {
-      args: ["./makeImage.py", sentence],
-      cwd: "./server/models",
-      stdout: "piped",
-    });
-    const { code, success, signal, stdout, stderr } = await command.output();
-    if(success){
+    const imageBase64: string = makeImageBase64(sentence).toString();
+    if (imageBase64) {
       const responseJson = {};
-      responseJson["image"] = decoder.decode(stdout);
+      responseJson["image"] = imageBase64;
       ctx.response.body = JSON.stringify(responseJson, null, 2);
-    }else{
+    } else {
       ctx.response.status = 400;
       ctx.response.body = { message: "failed to generate image" };
     }

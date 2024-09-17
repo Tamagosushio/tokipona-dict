@@ -3,7 +3,7 @@ const sentenceSendButton = document.querySelector("#sentenceSendButton");
 const wordMeansList = document.querySelector("#wordMeansList");
 const messageBlock = document.querySelector("#messageBlock");
 const generateImageButton = document.querySelector("#generateImageButton");
-const imageBlock = document.querySelector("#imageBlock")
+const imageBlock = document.querySelector("#imageBlock");
 
 const listSequence = ["spell", "kana", "subject", "verb", "adjective", "other"];
 
@@ -48,7 +48,7 @@ sentenceSendButton.onclick = async () => {
 
 generateImageButton.onclick = async () => {
   const sentence = sentenceInput.value;
-  imageBlock.innerHTML = ""
+  imageBlock.innerHTML = "";
   const response = await fetch("/api/get-sentence-image", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -68,4 +68,4 @@ generateImageButton.onclick = async () => {
     const errorObj = JSON.parse(errorJson);
     messageBlock.innerText = errorObj["message"];
   }
-}
+};
