@@ -27,7 +27,6 @@ export const controller = {
     changeSpaceCharsReg.forEach((reg) => {
       sentence = sentence.replaceAll(reg, " ");
     });
-    console.log(sentence);
     const meanList: { [key: string]: string }[] = [];
     // 単語ごとにその意味を配列に詰める
     sentence.split(" ").forEach((word) => {
