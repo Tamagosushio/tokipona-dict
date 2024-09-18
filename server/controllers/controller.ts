@@ -31,6 +31,7 @@ export const controller = {
     const meanList: { [key: string]: string }[] = [];
     // 単語ごとにその意味を配列に詰める
     sentence.split(" ").forEach((word) => {
+      if(word === "") return;
       meanList.push(Tokipona.getMeanDict(word));
     });
     // 対応しない単語があればエラー処理
