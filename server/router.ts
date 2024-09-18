@@ -5,6 +5,5 @@ const router = new Router();
 
 router.get("/api/get-mean/:word", controller.getMean);
 router.post("/api/get-mean-sentence", controller.getMeanSentence);
-router.post("/api/get-sentence-image", controller.getSentenceImage);
 
 export { router };

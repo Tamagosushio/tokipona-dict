@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.1/css/bulma.min.css">
+    <link rel="stylesheet" href="./css/bulma/css/bulma.css">
+    <link rel="stylesheet" href="./css/index.css">
 </head>
 
 <body>
@@ -17,9 +18,12 @@
         </div>
         <div class="block">
             <button id="sentenceSendButton" type="submit" class="button is-success is-large"><strong>送信</strong></button>
-            <button id="generateImageButton" type="submit" class="button is-primary is-normal"><strong>画像生成</strong></button>
+            <button id="generateImageButton" type="submit" class="button is-primary is-normal" disabled><strong>画像化</strong></button>
         </div>
-        <div id="imageBlock" class="block"></div>
+        <div>
+            <div id="tokiponaFontText" class="block title is-3" style="background-color: white; color: black; font-family: 'tokipona-font'; text-align: center; display:inline-block;"></div>
+            <img id="tokiponaImage" />
+        </div>
         <div class="box">
             <div style="text-align:left; display:inline-block;">
                 <table class="table">
@@ -41,9 +45,13 @@
             <ui>
                 <li>単語の区切りは半角スペース</li>
                 <li>アルファベットはすべて小文字</li>
+                <li>固有名詞の〇で囲う箇所は "[]" で括る</li>
+                <li>piは "()" で括る</li>
+                <li>組み文字は "-" で単語を繋げる</li>
             </ui>
         </div>
     </div>
+    <script src="js/elem2img.js"></script>
     <script src="js/index.js"></script>
 </body>
 
