@@ -2,7 +2,9 @@ import { helpers, RouterContext } from "https://deno.land/x/oak@v6.5.0/mod.ts";
 import Tokipona from "./../models/tokipona.ts";
 
 Tokipona.init();
-const decoder = new TextDecoder();
+
+const deleteCharsReg = [/\{/g, /\}/g, /\[/g, /\]/g, /\(/g, /\)/g, /\./g, /\:/g];
+const changeSpaceCharsReg = [/\-/g];
 
 export const controller = {
   getMean(ctx: RouterContext) {
@@ -19,8 +21,13 @@ export const controller = {
   async getMeanSentence(ctx: RouterContext) {
     const requestJson = await ctx.request.body.json();
     let sentence: string = requestJson["sentence"];
-    sentence = sentence
-      .replaceAll(/\(/g,"").replaceAll(/\)/g,"").replaceAll(/\[/g,"").replaceAll(/\]/g,"").replaceAll(/\./g,"").replaceAll(/\:/g,"");
+    deleteCharsReg.forEach((reg) => {
+      sentence = sentence.replaceAll(reg, "");
+    });
+    changeSpaceCharsReg.forEach((reg) => {
+      sentence = sentence.replaceAll(reg, " ");
+    });
+    console.log(sentence);
     const meanList: { [key: string]: string }[] = [];
     // 単語ごとにその意味を配列に詰める
     sentence.split(" ").forEach((word) => {
