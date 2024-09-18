@@ -1,6 +1,6 @@
 {
     "tasks": {
-      "start": "deno run --watch --allow-net --allow-read --allow-env --unstable-ffi --allow-ffi server.deno.ts"
+      "start": "deno run --watch --allow-net --allow-read server.deno.ts"
     },
     "compilerOptions": {
       "allowJs": true,
